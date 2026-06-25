@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MEDCID - BRAINLAB</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#35e7ff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="MEDCID - BRAINLAB">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="MEDCID - BRAINLAB">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+  <style>
+    :root{
+      --bg:#040912;--bg2:#071526;--panel:rgba(10,24,42,.86);--panel2:rgba(13,31,54,.92);--card:rgba(255,255,255,.055);
+      --text:#ecf8ff;--muted:#94abc1;--line:rgba(129,218,255,.18);--cyan:#35e7ff;--blue:#497cff;--violet:#8c5cff;
+      --green:#62f5a1;--yellow:#ffd166;--red:#ff557a;--orange:#ff985d;--shadow:0 22px 70px rgba(0,0,0,.42);
+      --radius:22px;--font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    body.light{--bg:#f4f8ff;--bg2:#eaf2ff;--panel:rgba(255,255,255,.92);--panel2:rgba(241,247,255,.98);--card:rgba(0,44,90,.045);--text:#102033;--muted:#536577;--line:rgba(16,51,92,.15);--cyan:#006aff;--blue:#315bff;--violet:#7745e8;--green:#0f995d;--yellow:#a56d00;--red:#d92851;--orange:#b65d12;--shadow:0 18px 48px rgba(66,91,125,.18)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;min-height:100vh;font-family:var(--font);color:var(--text);background:radial-gradient(circle at 9% 4%,rgba(53,231,255,.18),transparent 34%),radial-gradient(circle at 92% 12%,rgba(140,92,255,.20),transparent 36%),linear-gradient(135deg,var(--bg),var(--bg2));}
+    button,input,select,textarea{font:inherit} button{cursor:pointer} a{color:var(--cyan)}
+    .app{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}.side{position:sticky;top:0;height:100vh;padding:22px;border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(2,7,14,.88),rgba(6,18,33,.76));backdrop-filter:blur(18px);overflow:auto}.light .side{background:rgba(255,255,255,.72)}
+    .brand{display:flex;gap:14px;align-items:center;margin-bottom:18px}.logo{width:52px;height:52px;border-radius:18px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04101c;font-weight:950;letter-spacing:-.05em;box-shadow:0 0 34px rgba(53,231,255,.26)}.brand h1{font-size:1.06rem;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:.84rem}
+    .nav{display:grid;gap:8px;margin:18px 0}.nav button{width:100%;border:1px solid transparent;background:transparent;color:var(--muted);text-align:left;border-radius:15px;padding:12px 14px;transition:.18s}.nav button:hover,.nav button.active{background:rgba(53,231,255,.095);border-color:var(--line);color:var(--text);transform:translateX(2px)}
+    .side-card,.card,.hero{border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px}.side-card{margin-top:14px}.label{display:block;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;margin-bottom:8px}.muted{color:var(--muted)}.small{font-size:.88rem}.tiny{font-size:.78rem}.dangerText{color:var(--red)}.goodText{color:var(--green)}
+    main{padding:26px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:20px}.topbar h2{font-size:clamp(1.65rem,3.2vw,2.75rem);margin:0}.eyebrow{margin:0 0 5px;color:var(--cyan);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;font-weight:900}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.tab{display:none}.tab.active{display:block}.grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}.hero-grid{display:grid;grid-template-columns:1.35fr .85fr .85fr;gap:16px;margin-bottom:16px}.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(53,231,255,.12),rgba(140,92,255,.13)),var(--panel)}.hero:before{content:"";position:absolute;inset:-60%;background:radial-gradient(circle,rgba(53,231,255,.12),transparent 48%);animation:spin 18s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.hero>*{position:relative}.hero strong.big{display:block;font-size:2.65rem;line-height:1;margin:8px 0 16px}.card h3,.hero h3{margin:0 0 10px}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:22px 0 14px}.section-head h2{margin:0;font-size:clamp(1.45rem,2.4vw,2.1rem)}
+    input,select,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:15px;padding:12px 13px;color:var(--text);outline:none}textarea{resize:vertical}label{display:grid;gap:7px;color:var(--muted);font-size:.9rem}label span{color:var(--text)}.form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid.single{grid-template-columns:1fr}.form-grid .wide{grid-column:span 2}.form-grid .full{grid-column:1/-1}
+    button,.upload{border:1px solid var(--line);border-radius:15px;padding:11px 14px;background:rgba(255,255,255,.045);color:var(--text);transition:.18s;display:inline-flex;align-items:center;gap:8px;justify-content:center}.upload{cursor:pointer}button:hover,.upload:hover{border-color:rgba(53,231,255,.45);transform:translateY(-1px)}.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));color:#06101b;border:0;font-weight:950}.ghost{background:rgba(255,255,255,.035)}.danger{background:rgba(255,85,122,.16);border-color:rgba(255,85,122,.30);color:#fff}.success{background:rgba(98,245,161,.14);border-color:rgba(98,245,161,.25)}.mini{padding:8px 10px;border-radius:12px;font-size:.86rem}
+    .progress{height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid var(--line)}.progress.big{height:15px}.progress span{display:block;height:100%;border-radius:999px;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));transition:.25s}.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:5px 9px;color:var(--muted);white-space:nowrap;font-size:.8rem}.pill.good{color:var(--green);border-color:rgba(98,245,161,.28)}.pill.warn{color:var(--yellow);border-color:rgba(255,209,102,.28)}.pill.bad{color:var(--red);border-color:rgba(255,85,122,.28)}.pill.info{color:var(--cyan);border-color:rgba(53,231,255,.28)}
+    .list,.stack{display:grid;gap:10px}.row,.check,.module-card,.pattern-card,.belief-card,.empty,.quote{border:1px solid var(--line);background:var(--card);border-radius:17px;padding:13px 14px}.row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.row strong{display:block;margin-bottom:4px}.row-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.check{display:flex;justify-content:space-between;align-items:center;gap:10px}.check label{display:flex;flex-direction:row;align-items:center;gap:10px;color:var(--text);font-size:1rem;flex:1}input[type="checkbox"],input[type="radio"]{width:18px;height:18px;accent-color:var(--cyan)}.empty{text-align:center;color:var(--muted)}.empty strong{color:var(--text)}
+    .metric{padding:15px;border:1px solid var(--line);border-radius:18px;background:var(--card)}.metric strong{display:block;font-size:1.45rem}.metric span{color:var(--muted);font-size:.82rem}.module-card{display:grid;gap:12px}.module-card header{display:flex;justify-content:space-between;gap:10px}.module-card h3{margin:0}.module-card .tasks{display:grid;gap:8px}.task-line{display:flex;gap:8px;align-items:center;color:var(--muted)}
+    .test-question{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,120px);gap:8px;align-items:center;padding:10px;border-bottom:1px solid var(--line)}.test-question:nth-child(odd){background:rgba(255,255,255,.025)}.test-head{font-weight:900;color:var(--muted);text-transform:uppercase;font-size:.75rem}.radio-cell{display:grid;place-items:center}.result-box{border:1px solid var(--line);border-radius:22px;padding:20px;background:linear-gradient(135deg,rgba(53,231,255,.08),rgba(140,92,255,.08))}.result-box .score{font-size:3rem;font-weight:950;line-height:1}.quote{border-left:4px solid var(--cyan);color:var(--muted)}.quote strong{color:var(--text)}
+    .canvas-wrap{min-height:270px}canvas{width:100%;max-width:100%;height:260px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:18px}.protocol{counter-reset:step;display:grid;gap:10px}.protocol div{counter-increment:step;display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:16px;border:1px solid var(--line);background:var(--card)}.protocol div:before{content:counter(step);width:26px;height:26px;display:grid;place-items:center;border-radius:999px;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#06101b;font-weight:950;flex:0 0 26px}.taglist{display:flex;gap:8px;flex-wrap:wrap}.split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px}.footer-note{color:var(--muted);font-size:.86rem;margin-top:18px}
+    @media(max-width:1080px){.app{grid-template-columns:1fr}.side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}.nav{grid-template-columns:repeat(2,minmax(0,1fr));display:grid}.hero-grid,.grid.two,.grid.three,.grid.four,.split{grid-template-columns:1fr}.topbar,.section-head{flex-direction:column}.actions{justify-content:flex-start}.form-grid,.form-grid.two{grid-template-columns:1fr}.form-grid .wide{grid-column:auto}.test-question{grid-template-columns:1fr repeat(3,1fr)}}
+    @media(max-width:560px){main,.side{padding:15px}.nav{grid-template-columns:1fr}.test-question{grid-template-columns:1fr}.test-head{display:none}.row,.check{flex-direction:column;align-items:stretch}.hero strong.big{font-size:2.15rem}}
+
+    .pwa-banner{position:fixed;left:18px;right:18px;bottom:18px;z-index:9999;display:none;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:var(--shadow);backdrop-filter:blur(16px)}
+    .pwa-banner.show{display:flex}.pwa-banner strong{display:block}.pwa-banner p{margin:2px 0 0;color:var(--muted);font-size:.86rem}.pwa-banner .actions{flex-shrink:0}
+    @media(max-width:560px){.pwa-banner{flex-direction:column;align-items:stretch}.pwa-banner .actions{justify-content:stretch}.pwa-banner button{width:100%}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="logo">MC</div><div><h1>MEDCID - BRAINLAB</h1><p>Laboratório MedCid de foco, hábitos e estudos</p></div></div>
+    <nav class="nav">
+      <button class="nav-btn active" data-tab="central">Central</button>
+      <button class="nav-btn" data-tab="flashtest">Flashtest</button>
+      <button class="nav-btn" data-tab="jornada">Jornada</button>
+      <button class="nav-btn" data-tab="missoes">Missões</button>
+      <button class="nav-btn" data-tab="padroes">Padrões</button>
+      <button class="nav-btn" data-tab="crencas">Crenças</button>
+      <button class="nav-btn" data-tab="blindagem">Blindagem</button>
+      <button class="nav-btn" data-tab="estudos">Estudos</button>
+      <button class="nav-btn" data-tab="saude">Saúde & Igreja</button>
+      <button class="nav-btn" data-tab="relatorios">Relatórios</button>
+      <button class="nav-btn" data-tab="config">Config</button>
+    </nav>
+    <div class="side-card">
+      <span class="label">XP acumulado</span>
+      <strong id="sideLevel">Reorganizando</strong>
+      <div class="progress"><span id="sideProgress"></span></div>
+      <small id="sideXP" class="muted">0 XP</small>
+    </div>
+    <div class="side-card">
+      <span class="label">Regra do sistema</span>
+      <p class="muted small">Dia ruim não é dia perdido. É dia de reduzir a carga, executar o mínimo e voltar ao plano.</p>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div><p class="eyebrow" id="todayEyebrow">Hoje</p><h2 id="pageTitle">Central MEDCID - BRAINLAB</h2></div>
+      <div class="actions">
+        <select id="dayMode"><option value="normal">Modo Normal</option><option value="guerra">Modo Guerra</option><option value="recuperacao">Modo Recuperação</option><option value="domingo">Modo Domingo</option></select>
+        <button class="ghost" id="themeBtn">Tema</button>
+        <button class="primary" id="exportBtn">Backup</button>
+      </div>
+    </header>
+
+    <section class="tab active" id="tab-central">
+      <div class="hero-grid">
+        <article class="hero"><span class="label">Pontuação de hoje</span><strong class="big" id="todayXP">0/100</strong><div class="progress big"><span id="todayProgress"></span></div><p id="todayPhrase" class="muted">Comece pelo mínimo sagrado.</p></article>
+        <article class="card"><span class="label">Status MEDCID - BRAINLAB</span><h3 id="brainStatus">Sem teste salvo</h3><p class="muted" id="brainAdvice">Faça o Flashtest para gerar diagnóstico inicial.</p><button class="ghost mini" data-jump="flashtest">Ir ao Flashtest</button></article>
+        <article class="card"><span class="label">Próxima ação</span><h3 id="nextAction">Defina o comando do dia.</h3><p class="muted small">A próxima ação deve caber em 10–25 minutos.</p></article>
+      </div>
+      <div class="grid four" id="quickMetrics"></div>
+      <div class="grid two" style="margin-top:16px">
+        <article class="card"><div class="section-head" style="margin:0 0 12px"><div><span class="label">Checklist</span><h3>Missões de hoje</h3></div><button class="primary mini" id="activateRecovery">Ativar recuperação</button></div><div class="list" id="todayChecklist"></div></article>
+        <article class="card"><div class="section-head" style="margin:0 0 12px"><div><span class="label">Revisões</span><h3>Vencidas hoje</h3></div><button class="ghost mini" data-jump="estudos">Adicionar estudo</button></div><div class="list" id="dueReviews"></div></article>
+      </div>
+      <article class="card" style="margin-top:16px"><span class="label">Comando rápido</span><div class="form-grid"><input id="quickCommand" placeholder="Ex.: 20 questões de Farmaco antes do almoço"><button class="primary" id="saveQuickCommand">Salvar comando</button></div><p class="muted small">Esse comando aparece como missão principal do dia.</p></article>
+    </section>
+
+    <section class="tab" id="tab-flashtest">
+      <div class="section-head"><div><p class="eyebrow">Diagnóstico</p><h2>Flashtest digital</h2></div><button class="primary" id="calcTest">Calcular e salvar</button></div>
+      <div class="quote"><strong>Como funciona:</strong> a parte 1 mede ações que drenam energia; a parte 2 mede consciência e clareza. Quanto menor a pontuação final, melhor. O teste usa a lógica 0–3–5 e resultado de 0 a 100.</div>
+      <div class="grid two" style="margin-top:16px">
+        <article class="card"><h3>Parte 1 — Ações</h3><p class="muted small">Para comportamentos problemáticos: nunca = 0, às vezes = 3, sempre = 5.</p><div id="testPart1" class="stack"></div></article>
+        <article class="card"><h3>Parte 2 — Consciência</h3><p class="muted small">Para consciência e clareza: sempre = 0, às vezes = 3, nunca = 5.</p><div id="testPart2" class="stack"></div></article>
+      </div>
+      <article class="result-box" style="margin-top:16px"><span class="label">Resultado atual</span><div class="score" id="testScore">--</div><h3 id="testLevel">Ainda não calculado</h3><p class="muted" id="testMeaning">Responda todas as perguntas para gerar o plano da semana.</p><div class="taglist" id="testTags"></div></article>
+    </section>
+
+    <section class="tab" id="tab-jornada">
+      <div class="section-head"><div><p class="eyebrow">9 módulos</p><h2>Jornada MEDCID - BRAINLAB</h2></div><button class="ghost" id="resetModules">Resetar módulos</button></div>
+      <div class="grid three" id="moduleGrid"></div>
+    </section>
+
+    <section class="tab" id="tab-missoes">
+      <div class="section-head"><div><p class="eyebrow">Execução diária</p><h2>Missões e reprogramação do dia</h2></div></div>
+      <div class="grid two">
+        <article class="card"><h3>Programação da manhã</h3><div class="form-grid single"><input id="morningFocus" placeholder="Foco principal do dia"><input id="morningNonneg" placeholder="Não negociável"><input id="morningRisk" placeholder="Risco do dia"><input id="morningCounter" placeholder="Resposta ao risco"><button class="primary" id="saveMorning">Salvar programação</button></div></article>
+        <article class="card"><h3>Fechamento da noite</h3><div class="form-grid single"><select id="nightPattern"><option>Celular</option><option>Sono ruim</option><option>Comecei tarde</option><option>Fugi da matéria difícil</option><option>Ansiedade</option><option>Perfeccionismo</option><option>Disse sim demais</option><option>Falta de clareza</option></select><textarea id="nightWorked" rows="3" placeholder="O que funcionou hoje?"></textarea><textarea id="nightAdjust" rows="3" placeholder="Qual é o mínimo de amanhã?"></textarea><button class="primary" id="saveNight">Salvar fechamento</button></div></article>
+      </div>
+      <div class="section-head"><div><span class="label">Hábitos</span><h2>Editar missões fixas</h2></div></div>
+      <article class="card"><div class="form-grid"><input id="habitName" placeholder="Nome do hábito"><select id="habitArea"><option>Estudo</option><option>Saúde</option><option>Espiritual</option><option>Igreja</option><option>Casa</option><option>Social</option></select><input id="habitXP" type="number" min="1" placeholder="XP"><button class="primary" id="addHabit">Adicionar hábito</button></div></article>
+      <article class="card" style="margin-top:16px"><div class="list" id="habitList"></div></article>
+    </section>
+
+    <section class="tab" id="tab-padroes">
+      <div class="section-head"><div><p class="eyebrow">Mapa de padrões</p><h2>Gatilho → padrão → substituição</h2></div><button class="primary" id="addPattern">Adicionar padrão</button></div>
+      <article class="card"><div class="form-grid two"><input id="patternName" placeholder="Padrão. Ex.: Procrastinar depois do almoço"><input id="patternTrigger" placeholder="Gatilho. Ex.: pegar celular após comer"><input id="patternCost" placeholder="Custo. Ex.: perco 2 horas e fico culpado"><input id="patternReplace" placeholder="Substituição. Ex.: caminhada + 10 questões"><input class="wide" id="patternAction" placeholder="Ação mínima de 2 minutos"><select id="patternArea"><option>Estudo</option><option>Saúde</option><option>Espiritual</option><option>Social</option><option>Igreja</option></select></div></article>
+      <div class="grid two" style="margin-top:16px"><article class="card"><h3>Seus padrões</h3><div class="list" id="patternList"></div></article><article class="card"><h3>Registrar ocorrência hoje</h3><div class="form-grid single"><select id="patternLogSelect"></select><textarea id="patternLogNote" rows="4" placeholder="O que aconteceu? Qual substituição você tentou?"></textarea><button class="primary" id="savePatternLog">Salvar ocorrência</button></div><div class="list" id="patternLogList" style="margin-top:12px"></div></article></div>
+    </section>
+
+    <section class="tab" id="tab-crencas">
+      <div class="section-head"><div><p class="eyebrow">Crenças</p><h2>Declarações automáticas e substituições</h2></div><button class="primary" id="addBelief">Adicionar crença</button></div>
+      <article class="card"><div class="form-grid two"><input id="beliefBad" placeholder="Frase automática. Ex.: sou péssimo em Farmaco"><input id="beliefEvidence" placeholder="Evidência real. Ex.: revisei pouco e fiz poucas questões"><input id="beliefGood" placeholder="Declaração funcional. Ex.: Farmaco melhora com 10 questões/dia"><input id="beliefAction" placeholder="Ação mínima. Ex.: abrir 3 questões agora"></div></article>
+      <div class="grid two" style="margin-top:16px"><article class="card"><h3>Lista de reprogramação</h3><div id="beliefList" class="list"></div></article><article class="card"><h3>Roteiro de troca mental</h3><div class="protocol"><div>Nomeie a frase automática sem brigar com ela.</div><div>Procure a causa real e observável.</div><div>Troque por uma frase treinável.</div><div>Execute uma ação de 2 minutos imediatamente.</div></div></article></div>
+    </section>
+
+    <section class="tab" id="tab-blindagem">
+      <div class="section-head"><div><p class="eyebrow">Defesa</p><h2>Blindagem cerebral</h2></div><button class="danger" id="panicBtn">Estou quase sabotando o dia</button></div>
+      <div class="grid three" id="shieldGrid"></div>
+      <article class="card" style="margin-top:16px"><h3>Protocolo de emergência — dia vermelho</h3><div class="protocol"><div>Levante e saia do lugar onde está travado.</div><div>Beba água e respire por um minuto.</div><div>Escolha uma tarefa de 10 minutos, não uma tarefa perfeita.</div><div>Faça a tarefa sem negociar com o humor.</div><div>Registre o padrão que apareceu e volte ao plano mínimo.</div></div></article>
+    </section>
+
+    <section class="tab" id="tab-estudos">
+      <div class="section-head"><div><p class="eyebrow">Medicina</p><h2>Estudo, questões e revisões</h2></div></div>
+      <div class="grid two">
+        <article class="card"><h3>Registrar estudo</h3><div class="form-grid single"><input id="studySubject" placeholder="Assunto. Ex.: Asma"><input id="studyDiscipline" placeholder="Disciplina. Ex.: Pneumologia"><input id="studyMinutes" type="number" min="1" placeholder="Minutos"><select id="studyQuality"><option>Superficial</option><option>Bom</option><option>Profundo</option></select><button class="primary" id="saveStudy">Salvar e gerar revisões</button></div></article>
+        <article class="card"><h3>Registrar questões</h3><div class="form-grid single"><input id="qDiscipline" placeholder="Disciplina"><input id="qSubject" placeholder="Assunto"><input id="qTotal" type="number" min="1" placeholder="Total"><input id="qCorrect" type="number" min="0" placeholder="Acertos"><button class="primary" id="saveQuestions">Salvar questões</button></div></article>
+      </div>
+      <div class="grid two" style="margin-top:16px"><article class="card"><h3>Revisões pendentes</h3><div class="list" id="reviewList"></div></article><article class="card"><h3>Desempenho por disciplina</h3><div class="list" id="questionStats"></div></article></div>
+    </section>
+
+    <section class="tab" id="tab-saude">
+      <div class="section-head"><div><p class="eyebrow">Base</p><h2>Saúde, energia, igreja e limites</h2></div></div>
+      <div class="grid two">
+        <article class="card"><h3>Registro de saúde</h3><div class="form-grid single"><input id="sleepHours" type="number" step="0.25" placeholder="Sono em horas"><input id="waterLiters" type="number" step="0.1" placeholder="Água em litros"><select id="trainingDone"><option value="nao">Sem treino</option><option value="leve">Caminhada/leve</option><option value="sim">Treino feito</option></select><input id="screenHours" type="number" step="0.25" placeholder="Tela/lazer em horas"><textarea id="healthNote" rows="3" placeholder="Observações"></textarea><button class="primary" id="saveHealth">Salvar saúde</button></div></article>
+        <article class="card"><h3>Devocional e serviço</h3><div class="form-grid single"><input id="devoRef" placeholder="Texto bíblico"><textarea id="devoLesson" rows="3" placeholder="Lição"></textarea><textarea id="devoAction" rows="3" placeholder="Aplicação prática"></textarea><input id="churchTask" placeholder="Compromisso/serviço"><button class="primary" id="saveChurch">Salvar devocional/serviço</button></div></article>
+      </div>
+      <div class="grid two" style="margin-top:16px"><article class="card"><h3>Histórico de saúde</h3><div class="list" id="healthList"></div></article><article class="card"><h3>Limites espirituais</h3><div class="list" id="churchList"></div></article></div>
+    </section>
+
+    <section class="tab" id="tab-relatorios">
+      <div class="section-head"><div><p class="eyebrow">Evidência</p><h2>Relatórios da semana</h2></div><button class="primary" id="refreshReports">Atualizar</button></div>
+      <div class="grid two"><article class="card"><h3>XP últimos 7 dias</h3><canvas id="xpChart" width="720" height="300"></canvas></article><article class="card"><h3>Questões últimos 7 dias</h3><canvas id="qChart" width="720" height="300"></canvas></article></div>
+      <article class="card" style="margin-top:16px"><h3>Diagnóstico automático</h3><div class="list" id="diagnosis"></div></article>
+    </section>
+
+    <section class="tab" id="tab-config">
+      <div class="section-head"><div><p class="eyebrow">Configurações</p><h2>Backup, metas e reset</h2></div></div>
+      <div class="grid two"><article class="card"><h3>Metas</h3><div class="form-grid single"><label>Questões por dia<input id="goalQuestions" type="number"></label><label>Estudo por dia em minutos<input id="goalStudy" type="number"></label><label>Sono mínimo<input id="goalSleep" type="number" step="0.25"></label><label>Água mínima<input id="goalWater" type="number" step="0.1"></label><button class="primary" id="saveGoals">Salvar metas</button></div></article><article class="card"><h3>Dados</h3><p class="muted">Os dados ficam no navegador. Exporte backup antes de limpar histórico ou trocar de aparelho.</p><div class="actions" style="justify-content:flex-start"><button class="primary" id="exportBtn2">Exportar JSON</button><label class="upload">Importar JSON<input hidden type="file" id="importFile" accept="application/json"></label><button class="danger" id="wipeBtn">Apagar tudo</button></div></article></div>
+      <p class="footer-note">Site original criado para uso pessoal, inspirado na estrutura de diagnóstico, módulos e exercícios do material enviado, sem copiar imagens ou páginas da apostila.</p>
+    </section>
+  </main>
+</div>
+
+<template id="emptyTpl"><div class="empty"><strong>Nada registrado ainda.</strong><p>Adicione um item para começar a gerar dados.</p></div></template>
+
+<script>
+const KEY='medcidBrainlab.v1';
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+const addDays=(iso,n)=>{const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const fmt=iso=>iso?iso.split('-').reverse().join('/'):'--';
+const id=()=>Math.random().toString(36).slice(2,10);
+const empty=()=>$('emptyTpl').content.cloneNode(true);
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
+
+const test1=['Adio tarefas importantes mesmo sabendo que preciso agir','Perco o foco com facilidade durante estudo ou tarefas','Minha motivação inicial cai rápido','Começo projetos e deixo inacabados','Sinto que estou ocupado, mas sem avançar no essencial','Fico distante dos meus objetivos principais','Tenho dificuldade de dizer não quando preciso','Chego ao fim do dia sem energia','Problemas pequenos ocupam espaço mental demais','Perco controle emocional em momentos de pressão','Sinto ansiedade que atrapalha minha execução'];
+const test2=['Entendo quais gatilhos me fazem perder a razão','Sei identificar o que me leva a procrastinar','Defino com clareza o objetivo do dia','Reconheço quais atividades realmente geram valor','Percebo meus padrões negativos quando eles aparecem','Reconheço crenças que limitam minha ação','Decido com base nos meus valores, não só no impulso','Consigo desligar da obrigação quando é hora de descansar','Consigo soltar lembranças ruins sem deixar que governem o dia'];
+const modules=[
+ {name:'1. Diagnóstico',desc:'Entender o estado atual e tirar uma foto honesta da rotina.',tasks:['Fazer flashtest','Registrar 3 sabotadores','Definir primeira meta de 7 dias']},
+ {name:'2. O cérebro na prática',desc:'Entender gatilhos, energia, foco e hábitos sem virar teoria parada.',tasks:['Mapear sono/celular','Registrar energia por 3 dias','Identificar horário de maior foco']},
+ {name:'3. Mapa interno',desc:'Nomear crenças, frases automáticas e objetivos que comandam o comportamento.',tasks:['Registrar 3 crenças','Trocar cada crença por ação mínima','Definir valores-guia']},
+ {name:'4. Quebra de padrões',desc:'Escolher padrões que drenam energia e criar substituições pequenas.',tasks:['Criar 3 mapas de padrão','Testar substituição por 3 dias','Registrar recaídas sem drama']},
+ {name:'5. Reprogramação',desc:'Inserir novos padrões por repetição, ambiente e ações curtas.',tasks:['Montar rotina de manhã','Executar missão diária','Fazer revisão noturna']},
+ {name:'6. Blindagem',desc:'Proteger foco, sono, espiritualidade e estudo contra distrações e sobrecarga.',tasks:['Montar barreiras digitais','Criar protocolo de dia ruim','Definir limites de igreja']},
+ {name:'7. Percalços',desc:'Planejar resposta para sono ruim, imprevistos, ansiedade e compromissos.',tasks:['Criar plano de recuperação','Listar riscos da semana','Definir mínimo sagrado']},
+ {name:'8. Aceleração',desc:'Aumentar resultado com questões, revisões, estatística e feedback rápido.',tasks:['Registrar questões','Atacar assunto fraco','Fazer revisão 1-3-7']},
+ {name:'9. Geração de valor',desc:'Transformar desenvolvimento em serviço, estudo sólido e contribuição real.',tasks:['Produzir algo útil','Servir com limite','Revisar a jornada']}
+];
+const shields={Digital:['Celular longe no primeiro bloco','YouTube só depois de questões','Ambiente de estudo limpo','Timer de 25 minutos'],Fisica:['Água visível na mesa','Sono protegido à noite','Treino/caminhada sem exagero','Pausa real entre blocos'],Espiritual:['Devocional antes de redes','Oração curta antes de decidir','Servir sem culpa','Não fugir para ocupação religiosa']};
+const defaultState={theme:'dark',mode:'normal',command:'',goals:{questions:40,study:240,sleep:7.5,water:2},habits:[{id:id(),name:'Devocional',area:'Espiritual',xp:15},{id:id(),name:'Água 2L',area:'Saúde',xp:10},{id:id(),name:'Treino ou caminhada',area:'Saúde',xp:20},{id:id(),name:'Estudo principal',area:'Estudo',xp:25},{id:id(),name:'Revisão antiga',area:'Estudo',xp:25},{id:id(),name:'Questões do dia',area:'Estudo',xp:30},{id:id(),name:'Planejar amanhã',area:'Casa',xp:10}],checks:{},moduleChecks:{},testHistory:[],daily:{},patterns:[{id:id(),name:'Começar tarde',trigger:'Acordar sem comando claro',cost:'O dia perde tração e vira culpa',replace:'Primeiro bloco de 25 minutos',action:'Abrir timer e fazer 5 questões',area:'Estudo'},{id:id(),name:'Celular pós-almoço',trigger:'Pegar celular depois de comer',cost:'Perco foco e sono pesa',replace:'Caminhada curta + água',action:'Deixar celular longe por 20 minutos',area:'Saúde'},{id:id(),name:'Evitar matéria difícil',trigger:'Ver assunto em que erro muito',cost:'A base fica fraca',replace:'Microdose diária',action:'Resolver 3 questões sem consultar',area:'Estudo'}],patternLogs:[],beliefs:[{id:id(),bad:'Sou ruim em Farmacologia',evidence:'Meu método foi irregular e com pouca questão',good:'Farmacologia melhora com repetição curta diária',action:'Fazer 10 questões hoje',done:false}],studies:[],reviews:[],questions:[],health:[],church:[],shieldChecks:{}};
+let state=load();
+function load(){try{return {...structuredClone(defaultState),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){return structuredClone(defaultState)}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function ensureDay(){const d=today();state.checks[d]??={};state.daily[d]??={};state.shieldChecks[d]??={};return d}
+function todaysHabits(){if(state.mode==='recuperacao')return state.habits.filter(h=>['Devocional','Água 2L','Revisão antiga','Questões do dia','Planejar amanhã'].includes(h.name)||h.area==='Saúde');if(state.mode==='domingo')return state.habits.filter(h=>['Espiritual','Igreja','Saúde','Casa'].includes(h.area));return state.habits}
+function xpToday(){const d=ensureDay();return todaysHabits().filter(h=>state.checks[d][h.id]).reduce((s,h)=>s+Number(h.xp||0),0)}
+function xpOn(date){const checks=state.checks[date]||{};return state.habits.filter(h=>checks[h.id]).reduce((s,h)=>s+Number(h.xp||0),0)}
+function totalXP(){return Object.keys(state.checks).reduce((s,d)=>s+xpOn(d),0)}
+function dates7(){let a=[];for(let i=6;i>=0;i--)a.push(addDays(today(),-i));return a}
+function lastTest(){return state.testHistory[state.testHistory.length-1]}
+function levelForScore(score){if(score===undefined||score===null)return ['Sem teste','Faça o diagnóstico inicial','info'];if(score>=68)return ['Nível alarmante','Prioridade: reduzir carga, organizar sono e executar o mínimo. Não use culpa como combustível.','bad'];if(score>=42)return ['Nível preocupante','Prioridade: clareza diária, bloqueio de sabotadores e revisão semanal.','warn'];if(score>=25)return ['Nível satisfatório','Você tem base. Agora precisa proteger equilíbrio e constância.','good'];return ['Nível super execução','Continue ajustando sem virar refém de produtividade.','good']}
+function setTab(tab){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('active',s.id==='tab-'+tab));const names={central:'Central MEDCID - BRAINLAB',flashtest:'Flashtest digital',jornada:'Jornada de 9 módulos',missoes:'Missões e reprogramação',padroes:'Mapa de padrões',crencas:'Crenças e declarações',blindagem:'Blindagem cerebral',estudos:'Estudos médicos',saude:'Saúde & Igreja',relatorios:'Relatórios',config:'Configurações'};$('pageTitle').textContent=names[tab]||'MEDCID - BRAINLAB';if(tab==='relatorios')setTimeout(renderCharts,80)}
+function bind(){document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>setTab(b.dataset.jump));$('themeBtn').onclick=()=>{state.theme=state.theme==='light'?'dark':'light';document.body.classList.toggle('light',state.theme==='light');save();renderCharts()};$('dayMode').onchange=e=>{state.mode=e.target.value;save();render()};$('exportBtn').onclick=exportData;$('exportBtn2').onclick=exportData;$('activateRecovery').onclick=()=>{state.mode='recuperacao';$('dayMode').value='recuperacao';save();render()};$('saveQuickCommand').onclick=()=>{state.command=$('quickCommand').value.trim();$('quickCommand').value='';save();render()};$('calcTest').onclick=calcTest;$('resetModules').onclick=()=>{if(confirm('Resetar progresso dos módulos?')){state.moduleChecks={};save();renderModules()}};$('saveMorning').onclick=saveMorning;$('saveNight').onclick=saveNight;$('addHabit').onclick=addHabit;$('addPattern').onclick=addPattern;$('savePatternLog').onclick=savePatternLog;$('addBelief').onclick=addBelief;$('panicBtn').onclick=panic;$('saveStudy').onclick=saveStudy;$('saveQuestions').onclick=saveQuestions;$('saveHealth').onclick=saveHealth;$('saveChurch').onclick=saveChurch;$('refreshReports').onclick=renderReports;$('saveGoals').onclick=saveGoals;$('importFile').onchange=importData;$('wipeBtn').onclick=wipe}
+function render(){ensureDay();document.body.classList.toggle('light',state.theme==='light');$('dayMode').value=state.mode;$('todayEyebrow').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});renderCentral();renderTest();renderModules();renderMissions();renderPatterns();renderBeliefs();renderShield();renderStudies();renderHealth();renderReports();renderSide();save()}
+function renderSide(){const xp=totalXP();const levels=[[0,'Reorganizando'],[350,'Constante'],[800,'Disciplinado'],[1400,'Preparado'],[2200,'Modo Wayne'],[3300,'Médico em formação'],[4800,'Servo forte']];let cur=levels[0],next=levels[1];for(let i=0;i<levels.length;i++){if(xp>=levels[i][0]){cur=levels[i];next=levels[i+1]||levels[i]}}$('sideLevel').textContent=cur[1];$('sideXP').textContent=xp+' XP';$('sideProgress').style.width=(next===cur?100:clamp((xp-cur[0])/(next[0]-cur[0])*100,0,100))+'%'}
+function renderCentral(){const d=ensureDay();const goal=state.mode==='guerra'?150:state.mode==='recuperacao'?60:state.mode==='domingo'?75:100;const xp=xpToday();$('todayXP').textContent=xp+'/'+goal;$('todayProgress').style.width=clamp(xp/goal*100,0,100)+'%';$('todayPhrase').textContent=xp>=goal?'Dia cumprido. Feche bem e proteja o sono.':state.mode==='recuperacao'?'Modo recuperação: mínimo, hidratação, revisão curta e sono.':state.mode==='guerra'?'Use energia alta com estratégia, sem sacrificar base.':'Execute a próxima missão antes de consumir distração.';const lt=lastTest();const [lvl,adv,cls]=levelForScore(lt?.score);$('brainStatus').textContent=lt?`${lt.score} pontos · ${lvl}`:'Sem teste salvo';$('brainAdvice').textContent=adv;$('brainStatus').className=cls==='bad'?'dangerText':cls==='good'?'goodText':'';const weak=getWeakSubjects()[0];$('nextAction').textContent=state.command|| (weak?`Atacar ${weak.subject}: 15 questões curtas.`:dueReviews().length?'Fazer uma revisão vencida agora.':'Definir foco do dia e executar 25 minutos.');$('quickMetrics').innerHTML='';const h=state.health.find(x=>x.date===d);const metrics=[['Hábitos feitos',todaysHabits().filter(h=>state.checks[d][h.id]).length+'/'+todaysHabits().length],['Questões hoje',questionsOn(d)],['Revisões vencidas',dueReviews().length],['Sono',h?.sleep?`${h.sleep}h`:'--']];metrics.forEach(m=>{const div=document.createElement('div');div.className='metric';div.innerHTML=`<strong>${m[1]}</strong><span>${m[0]}</span>`;$('quickMetrics').appendChild(div)});renderTodayChecklist();renderDueReviews()}
+function renderTodayChecklist(){const d=ensureDay(),box=$('todayChecklist');box.innerHTML='';todaysHabits().forEach(h=>{const row=document.createElement('div');row.className='check';row.innerHTML=`<label><input type="checkbox" ${state.checks[d][h.id]?'checked':''} data-check="${h.id}"><span>${h.name}</span></label><span class="pill info">${h.area} · ${h.xp} XP</span>`;box.appendChild(row)});if(!box.children.length)box.appendChild(empty());box.querySelectorAll('[data-check]').forEach(c=>c.onchange=e=>{state.checks[d][e.target.dataset.check]=e.target.checked;save();renderCentral();renderSide();renderReports()})}
+function dueReviews(){return state.reviews.filter(r=>!r.done&&r.date<=today()).sort((a,b)=>a.date.localeCompare(b.date))}
+function renderDueReviews(){const box=$('dueReviews');box.innerHTML='';const rows=dueReviews().slice(0,8);if(!rows.length)return box.appendChild(empty());rows.forEach(r=>{const div=document.createElement('div');div.className='row';div.innerHTML=`<div><strong>${r.topic}</strong><small class="muted">${r.discipline||'Sem disciplina'} · ${fmt(r.date)} · ${r.cycle}</small></div><button class="primary mini" data-reviewdone="${r.id}">Feita</button>`;box.appendChild(div)});box.querySelectorAll('[data-reviewdone]').forEach(b=>b.onclick=()=>{const r=state.reviews.find(x=>x.id===b.dataset.reviewdone);if(r)r.done=true;save();render()})}
+function renderTest(){renderTestPart('testPart1',test1,['Nunca','Às vezes','Sempre'],'p1');renderTestPart('testPart2',test2,['Sempre','Às vezes','Nunca'],'p2');const lt=lastTest();const score=lt?.score;$('testScore').textContent=score??'--';const [lvl,adv,cls]=levelForScore(score);$('testLevel').textContent=lvl;$('testMeaning').textContent=adv;$('testTags').innerHTML='';if(lt?.tags?.length)lt.tags.forEach(t=>{const span=document.createElement('span');span.className='pill warn';span.textContent=t;$('testTags').appendChild(span)})}
+function renderTestPart(boxId,items,labels,prefix){const box=$(boxId);if(box.dataset.ready)return;const head=document.createElement('div');head.className='test-question test-head';head.innerHTML=`<div>Item</div>${labels.map(l=>`<div class="radio-cell">${l}</div>`).join('')}`;box.appendChild(head);items.forEach((q,i)=>{const div=document.createElement('div');div.className='test-question';div.innerHTML=`<div>${q}</div>${[0,3,5].map((v,j)=>`<label class="radio-cell"><input type="radio" name="${prefix}-${i}" value="${v}"></label>`).join('')}`;box.appendChild(div)});box.dataset.ready='1'}
+function calcTest(){let total=0,answered=0;const tags=[];test1.forEach((q,i)=>{const el=document.querySelector(`input[name="p1-${i}"]:checked`);if(el){answered++;total+=Number(el.value);if(Number(el.value)>=3)tags.push(q.split(' ').slice(0,4).join(' '))}});test2.forEach((q,i)=>{const el=document.querySelector(`input[name="p2-${i}"]:checked`);if(el){answered++;total+=Number(el.value);if(Number(el.value)>=3)tags.push(q.split(' ').slice(0,4).join(' '))}});if(answered<test1.length+test2.length)return alert('Responda todas as perguntas do Flashtest.');state.testHistory.push({id:id(),date:today(),score:total,tags:[...new Set(tags)].slice(0,6)});save();render()}
+function renderModules(){const box=$('moduleGrid');box.innerHTML='';modules.forEach((m,mi)=>{const checks=state.moduleChecks[mi]||{};const done=m.tasks.filter((_,ti)=>checks[ti]).length;const pct=Math.round(done/m.tasks.length*100);const div=document.createElement('article');div.className='module-card';div.innerHTML=`<header><div><h3>${m.name}</h3><small class="muted">${m.desc}</small></div><span class="pill ${pct===100?'good':pct?'warn':''}">${pct}%</span></header><div class="progress"><span style="width:${pct}%"></span></div><div class="tasks">${m.tasks.map((t,ti)=>`<label class="task-line"><input type="checkbox" ${checks[ti]?'checked':''} data-module="${mi}:${ti}">${t}</label>`).join('')}</div><textarea rows="2" data-modnote="${mi}" placeholder="Anotação do módulo">${state.moduleChecks['note'+mi]||''}</textarea>`;box.appendChild(div)});box.querySelectorAll('[data-module]').forEach(c=>c.onchange=e=>{const [mi,ti]=e.target.dataset.module.split(':');state.moduleChecks[mi]??={};state.moduleChecks[mi][ti]=e.target.checked;save();renderModules();renderReports()});box.querySelectorAll('[data-modnote]').forEach(t=>t.onchange=e=>{state.moduleChecks['note'+e.target.dataset.modnote]=e.target.value;save()})}
+function renderMissions(){const d=ensureDay();const log=state.daily[d]||{};$('morningFocus').value=log.focus||'';$('morningNonneg').value=log.nonneg||'';$('morningRisk').value=log.risk||'';$('morningCounter').value=log.counter||'';$('habitList').innerHTML='';state.habits.forEach(h=>{const row=document.createElement('div');row.className='row';row.innerHTML=`<div><strong>${h.name}</strong><small class="muted">${h.area} · ${h.xp} XP</small></div><div class="row-actions"><button class="ghost mini" data-editxp="${h.id}">XP</button><button class="danger mini" data-delhabit="${h.id}">Excluir</button></div>`;$('habitList').appendChild(row)});if(!state.habits.length)$('habitList').appendChild(empty());document.querySelectorAll('[data-delhabit]').forEach(b=>b.onclick=()=>{state.habits=state.habits.filter(h=>h.id!==b.dataset.delhabit);save();render()});document.querySelectorAll('[data-editxp]').forEach(b=>b.onclick=()=>{const h=state.habits.find(x=>x.id===b.dataset.editxp);const v=prompt('Novo XP:',h.xp);if(v&&Number(v)>0){h.xp=Number(v);save();render()}})}
+function saveMorning(){const d=ensureDay();Object.assign(state.daily[d],{focus:$('morningFocus').value.trim(),nonneg:$('morningNonneg').value.trim(),risk:$('morningRisk').value.trim(),counter:$('morningCounter').value.trim()});state.command=state.daily[d].focus;save();render();alert('Programação salva.')}
+function saveNight(){const d=ensureDay();Object.assign(state.daily[d],{nightPattern:$('nightPattern').value,worked:$('nightWorked').value.trim(),adjust:$('nightAdjust').value.trim()});state.patternLogs.push({id:id(),date:d,pattern:$('nightPattern').value,note:$('nightWorked').value.trim(),fromNight:true});$('nightWorked').value='';$('nightAdjust').value='';save();render();alert('Fechamento salvo.')}
+function addHabit(){const name=$('habitName').value.trim();if(!name)return alert('Digite o nome do hábito.');state.habits.push({id:id(),name,area:$('habitArea').value,xp:Number($('habitXP').value||10)});$('habitName').value='';$('habitXP').value='';save();render()}
+function renderPatterns(){const box=$('patternList');box.innerHTML='';state.patterns.forEach(p=>{const div=document.createElement('div');div.className='pattern-card';div.innerHTML=`<strong>${p.name}</strong><p class="muted small"><b>Gatilho:</b> ${p.trigger||'--'}<br><b>Custo:</b> ${p.cost||'--'}<br><b>Substituição:</b> ${p.replace||'--'}<br><b>Ação mínima:</b> ${p.action||'--'}</p><div class="row-actions"><span class="pill info">${p.area}</span><button class="danger mini" data-delpattern="${p.id}">Excluir</button></div>`;box.appendChild(div)});if(!state.patterns.length)box.appendChild(empty());$('patternLogSelect').innerHTML=state.patterns.map(p=>`<option value="${p.name}">${p.name}</option>`).join('')||'<option>Sem padrões</option>';$('patternLogList').innerHTML='';state.patternLogs.slice(-7).reverse().forEach(l=>{const div=document.createElement('div');div.className='row';div.innerHTML=`<div><strong>${l.pattern}</strong><small class="muted">${fmt(l.date)} · ${l.note||'Sem nota'}</small></div>`;$('patternLogList').appendChild(div)});document.querySelectorAll('[data-delpattern]').forEach(b=>b.onclick=()=>{state.patterns=state.patterns.filter(p=>p.id!==b.dataset.delpattern);save();renderPatterns()})}
+function addPattern(){const name=$('patternName').value.trim();if(!name)return alert('Digite o padrão.');state.patterns.push({id:id(),name,trigger:$('patternTrigger').value.trim(),cost:$('patternCost').value.trim(),replace:$('patternReplace').value.trim(),action:$('patternAction').value.trim(),area:$('patternArea').value});['patternName','patternTrigger','patternCost','patternReplace','patternAction'].forEach(x=>$(x).value='');save();renderPatterns()}
+function savePatternLog(){state.patternLogs.push({id:id(),date:today(),pattern:$('patternLogSelect').value,note:$('patternLogNote').value.trim()});$('patternLogNote').value='';save();renderPatterns();renderReports()}
+function renderBeliefs(){const box=$('beliefList');box.innerHTML='';state.beliefs.forEach(b=>{const div=document.createElement('div');div.className='belief-card';div.innerHTML=`<span class="label">Frase automática</span><strong>“${b.bad}”</strong><p class="muted small"><b>Evidência:</b> ${b.evidence}<br><b>Declaração funcional:</b> ${b.good}<br><b>Ação mínima:</b> ${b.action}</p><div class="row-actions"><button class="${b.done?'success':'ghost'} mini" data-beliefdone="${b.id}">${b.done?'Treinada':'Marcar treinada'}</button><button class="danger mini" data-delbelief="${b.id}">Excluir</button></div>`;box.appendChild(div)});if(!state.beliefs.length)box.appendChild(empty());document.querySelectorAll('[data-beliefdone]').forEach(btn=>btn.onclick=()=>{const b=state.beliefs.find(x=>x.id===btn.dataset.beliefdone);b.done=!b.done;save();renderBeliefs()});document.querySelectorAll('[data-delbelief]').forEach(btn=>btn.onclick=()=>{state.beliefs=state.beliefs.filter(x=>x.id!==btn.dataset.delbelief);save();renderBeliefs()})}
+function addBelief(){const bad=$('beliefBad').value.trim();if(!bad)return alert('Digite a frase automática.');state.beliefs.push({id:id(),bad,evidence:$('beliefEvidence').value.trim(),good:$('beliefGood').value.trim(),action:$('beliefAction').value.trim(),done:false});['beliefBad','beliefEvidence','beliefGood','beliefAction'].forEach(x=>$(x).value='');save();renderBeliefs()}
+function renderShield(){const d=ensureDay(),box=$('shieldGrid');box.innerHTML='';Object.entries(shields).forEach(([name,items])=>{const card=document.createElement('article');card.className='card';card.innerHTML=`<h3>${name}</h3><div class="list">${items.map((it,i)=>`<div class="check"><label><input type="checkbox" ${state.shieldChecks[d][name+'-'+i]?'checked':''} data-shield="${name}-${i}"><span>${it}</span></label></div>`).join('')}</div>`;box.appendChild(card)});box.querySelectorAll('[data-shield]').forEach(c=>c.onchange=e=>{state.shieldChecks[d][e.target.dataset.shield]=e.target.checked;save();renderReports()})}
+function panic(){state.mode='recuperacao';state.command='Protocolo vermelho: água + 10 minutos de tarefa mínima';$('dayMode').value='recuperacao';save();render();alert('Modo recuperação ativado. Agora execute o protocolo de emergência.')}
+function createReviews(topic,discipline,base=today()){[1,3,7,15,30].forEach(n=>state.reviews.push({id:id(),topic,discipline,date:addDays(base,n),cycle:'D+'+n,done:false,created:today()}))}
+function saveStudy(){const subject=$('studySubject').value.trim();if(!subject)return alert('Digite o assunto.');state.studies.push({id:id(),date:today(),subject,discipline:$('studyDiscipline').value.trim(),minutes:Number($('studyMinutes').value||0),quality:$('studyQuality').value});createReviews(subject,$('studyDiscipline').value.trim());['studySubject','studyDiscipline','studyMinutes'].forEach(x=>$(x).value='');save();render();alert('Estudo salvo e revisões geradas.')}
+function saveQuestions(){const total=Number($('qTotal').value||0),correct=Number($('qCorrect').value||0);if(!$('qDiscipline').value.trim()||!$('qSubject').value.trim()||total<1||correct>total)return alert('Preencha os dados corretamente.');state.questions.push({id:id(),date:today(),discipline:$('qDiscipline').value.trim(),subject:$('qSubject').value.trim(),total,correct});['qDiscipline','qSubject','qTotal','qCorrect'].forEach(x=>$(x).value='');save();render()}
+function renderStudies(){const rb=$('reviewList');rb.innerHTML='';const rev=[...state.reviews].sort((a,b)=>a.date.localeCompare(b.date)).slice(0,80);if(!rev.length)rb.appendChild(empty());rev.forEach(r=>{const status=r.done?'good':r.date<today()?'bad':r.date===today()?'warn':'';const div=document.createElement('div');div.className='row';div.innerHTML=`<div><strong>${r.topic}</strong><small class="muted">${r.discipline||'Sem disciplina'} · ${fmt(r.date)} · ${r.cycle}</small></div><div class="row-actions"><span class="pill ${status}">${r.done?'Feita':r.date<=today()?'Pendente':'Agendada'}</span><button class="ghost mini" data-togrev="${r.id}">${r.done?'Desfazer':'Feita'}</button></div>`;rb.appendChild(div)});rb.querySelectorAll('[data-togrev]').forEach(b=>b.onclick=()=>{const r=state.reviews.find(x=>x.id===b.dataset.togrev);r.done=!r.done;save();render()});const qs=$('questionStats');qs.innerHTML='';const ag=aggregateQuestions();if(!ag.length)qs.appendChild(empty());ag.forEach(r=>{const div=document.createElement('div');div.className='row';div.innerHTML=`<div><strong>${r.discipline}</strong><small class="muted">${r.correct}/${r.total} acertos</small></div><span class="pill ${r.pct<60?'bad':r.pct<75?'warn':'good'}">${r.pct}%</span>`;qs.appendChild(div)})}
+function aggregateQuestions(){const m={};state.questions.forEach(q=>{m[q.discipline]??={discipline:q.discipline,total:0,correct:0};m[q.discipline].total+=q.total;m[q.discipline].correct+=q.correct});return Object.values(m).map(x=>({...x,pct:Math.round(x.correct/x.total*100)})).sort((a,b)=>a.pct-b.pct)}
+function getWeakSubjects(){const m={};state.questions.forEach(q=>{const k=q.discipline+' — '+q.subject;m[k]??={discipline:q.discipline,subject:q.subject,total:0,correct:0};m[k].total+=q.total;m[k].correct+=q.correct});return Object.values(m).filter(x=>x.total>=5).map(x=>({...x,pct:Math.round(x.correct/x.total*100)})).sort((a,b)=>a.pct-b.pct)}
+function questionsOn(d){return state.questions.filter(q=>q.date===d).reduce((s,q)=>s+q.total,0)}
+function saveHealth(){const entry={date:today(),sleep:Number($('sleepHours').value||0),water:Number($('waterLiters').value||0),training:$('trainingDone').value,screen:Number($('screenHours').value||0),note:$('healthNote').value.trim()};state.health=state.health.filter(h=>h.date!==entry.date);state.health.push(entry);['sleepHours','waterLiters','screenHours','healthNote'].forEach(x=>$(x).value='');save();render()}
+function saveChurch(){const entry={id:id(),date:today(),ref:$('devoRef').value.trim(),lesson:$('devoLesson').value.trim(),action:$('devoAction').value.trim(),task:$('churchTask').value.trim(),done:false};state.church.push(entry);['devoRef','devoLesson','devoAction','churchTask'].forEach(x=>$(x).value='');save();render()}
+function renderHealth(){const hb=$('healthList');hb.innerHTML='';state.health.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,14).forEach(h=>{const div=document.createElement('div');div.className='row';div.innerHTML=`<div><strong>${fmt(h.date)}</strong><small class="muted">Sono ${h.sleep||'--'}h · Água ${h.water||'--'}L · Treino ${h.training} · Tela ${h.screen||'--'}h</small>${h.note?`<small class="muted"><br>${h.note}</small>`:''}</div>`;hb.appendChild(div)});if(!hb.children.length)hb.appendChild(empty());const cb=$('churchList');cb.innerHTML='';state.church.slice().reverse().slice(0,10).forEach(c=>{const div=document.createElement('div');div.className='row';div.innerHTML=`<div><strong>${c.ref||c.task||'Registro espiritual'}</strong><small class="muted">${fmt(c.date)} · ${c.lesson||''} ${c.action?'<br>Ação: '+c.action:''} ${c.task?'<br>Serviço: '+c.task:''}</small></div>`;cb.appendChild(div)});if(!cb.children.length)cb.appendChild(empty())}
+function renderReports(){const box=$('diagnosis');box.innerHTML='';const d7=dates7();const xp=d7.reduce((s,d)=>s+xpOn(d),0),q=d7.reduce((s,d)=>s+questionsOn(d),0);const revDue=dueReviews().length;const health=state.health.filter(h=>d7.includes(h.date));const sleep=avg(health.map(h=>h.sleep).filter(Boolean));const water=avg(health.map(h=>h.water).filter(Boolean));const pat={};state.patternLogs.filter(l=>d7.includes(l.date)).forEach(l=>pat[l.pattern]=(pat[l.pattern]||0)+1);const topPat=Object.entries(pat).sort((a,b)=>b[1]-a[1])[0];const weak=getWeakSubjects()[0];const msgs=[`XP dos últimos 7 dias: ${xp}.`,`Questões dos últimos 7 dias: ${q}.`,`Revisões vencidas pendentes: ${revDue}.`];if(sleep)msgs.push(`Sono médio registrado: ${sleep.toFixed(1)}h.`);if(water)msgs.push(`Água média registrada: ${water.toFixed(1)}L.`);if(topPat)msgs.push(`Padrão mais frequente: ${topPat[0]}.`);if(weak)msgs.push(`Assunto mais fraco: ${weak.subject} em ${weak.discipline}, com ${weak.pct}% de acerto.`);if(q<state.goals.questions*4)msgs.push('Correção sugerida: fazer questões antes de consumir aula/vídeo.');if(revDue>6)msgs.push('Correção sugerida: mutirão de revisões curtas, sem perfeccionismo.');if(sleep&&sleep<state.goals.sleep)msgs.push('Correção sugerida: tratar sono como missão de performance, não como luxo.');msgs.forEach(m=>{const div=document.createElement('div');div.className='row';div.innerHTML=`<div><strong>${m}</strong></div>`;box.appendChild(div)});renderCharts()}
+function renderCharts(){drawChart('xpChart',dates7().map(d=>({label:d.slice(5),value:xpOn(d)})),'XP');drawChart('qChart',dates7().map(d=>({label:d.slice(5),value:questionsOn(d)})),'Questões')}
+function drawChart(idc,data,label){const c=$(idc);if(!c)return;const ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);const css=getComputedStyle(document.body),text=css.getPropertyValue('--text'),muted=css.getPropertyValue('--muted'),cyan=css.getPropertyValue('--cyan'),violet=css.getPropertyValue('--violet');const pad=42,max=Math.max(10,...data.map(d=>d.value));ctx.strokeStyle='rgba(150,190,220,.22)';ctx.beginPath();ctx.moveTo(pad,h-pad);ctx.lineTo(w-pad,h-pad);ctx.stroke();const bw=(w-pad*2)/data.length-16;data.forEach((d,i)=>{const x=pad+i*((w-pad*2)/data.length)+8,bh=(h-pad*2)*d.value/max,y=h-pad-bh;const g=ctx.createLinearGradient(0,y,0,h-pad);g.addColorStop(0,cyan.trim());g.addColorStop(1,violet.trim());ctx.fillStyle=g;round(ctx,x,y,bw,bh,8);ctx.fill();ctx.fillStyle=text;ctx.font='15px system-ui';ctx.textAlign='center';ctx.fillText(d.value,x+bw/2,y-8);ctx.fillStyle=muted;ctx.font='12px system-ui';ctx.fillText(d.label,x+bw/2,h-14)});ctx.fillStyle=muted;ctx.textAlign='left';ctx.font='13px system-ui';ctx.fillText(label,14,24)}
+function round(ctx,x,y,w,h,r){if(h<1)return;const rr=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+rr,y);ctx.arcTo(x+w,y,x+w,y+h,rr);ctx.arcTo(x+w,y+h,x,y+h,rr);ctx.arcTo(x,y+h,x,y,rr);ctx.arcTo(x,y,x+w,y,rr);ctx.closePath()}
+function saveGoals(){state.goals={questions:Number($('goalQuestions').value||40),study:Number($('goalStudy').value||240),sleep:Number($('goalSleep').value||7.5),water:Number($('goalWater').value||2)};save();render()}
+function hydrateGoals(){$('goalQuestions').value=state.goals.questions;$('goalStudy').value=state.goals.study;$('goalSleep').value=state.goals.sleep;$('goalWater').value=state.goals.water}
+function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='backup-medcid-brainlab-'+today()+'.json';a.click();URL.revokeObjectURL(url)}
+function importData(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);save();hydrateGoals();render();alert('Backup importado.')}catch{alert('Arquivo inválido.')}};r.readAsText(f)}
+function wipe(){if(confirm('Apagar todos os dados do site neste navegador?')){localStorage.removeItem(KEY);state=structuredClone(defaultState);hydrateGoals();render()}}
+function init(){bind();hydrateGoals();render()}init();
+</script>
+
+<div class="pwa-banner" id="pwaBanner">
+  <div>
+    <strong>Instalar MEDCID - BRAINLAB</strong>
+    <p>No Android, toque em instalar. No iPhone, use Safari → Compartilhar → Adicionar à Tela de Início.</p>
+  </div>
+  <div class="actions">
+    <button class="primary mini" id="installPwaBtn">Instalar</button>
+    <button class="ghost mini" id="dismissPwaBtn">Agora não</button>
+  </div>
+</div>
+
+<script>
+  let medcidDeferredPrompt = null;
+  const medcidPwaBanner = document.getElementById("pwaBanner");
+  const medcidInstallBtn = document.getElementById("installPwaBtn");
+  const medcidDismissBtn = document.getElementById("dismissPwaBtn");
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    medcidDeferredPrompt = event;
+    if (localStorage.getItem("medcidBrainlabInstallDismissed") !== "yes") {
+      medcidPwaBanner?.classList.add("show");
+    }
+  });
+
+  medcidInstallBtn?.addEventListener("click", async () => {
+    if (!medcidDeferredPrompt) return;
+    medcidDeferredPrompt.prompt();
+    await medcidDeferredPrompt.userChoice;
+    medcidDeferredPrompt = null;
+    medcidPwaBanner?.classList.remove("show");
+  });
+
+  medcidDismissBtn?.addEventListener("click", () => {
+    localStorage.setItem("medcidBrainlabInstallDismissed", "yes");
+    medcidPwaBanner?.classList.remove("show");
+  });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("MEDCID - BRAINLAB: Service Worker registrado."))
+        .catch((error) => console.log("MEDCID - BRAINLAB: erro no Service Worker:", error));
+    });
+  }
+</script>
+
+</body>
+</html>
